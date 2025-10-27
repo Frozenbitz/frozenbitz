@@ -1,7 +1,7 @@
 ---
 title: MOTRA - Design and Build customized industrial Testbeds
 description: A short introduction to the MOTRA testbed and a collection of links and publication history.
-date: 2025-10-17 12:00:00 +0200
+date: 2025-10-27 12:00:00 +0200
 categories: [MOTRA]
 tags: [motra, docker, opc ua, testbed]     # TAG names should always be lowercase
 image:
