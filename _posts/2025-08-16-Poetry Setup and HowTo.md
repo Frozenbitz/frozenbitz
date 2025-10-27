@@ -1,8 +1,8 @@
 ---
 title: Poetry - Create Environments and Manage Dependencies
-description: Instructions on how to quickly setup a new development environment, setup jupyter and solve some common issues. Also contains a few useull links.
-date: 2025-08-16 18:55:00 +0200
-categories: [Documentation, Code Management]
+description: Instructions on how to quickly setup a new development environment, setup jupyter and solve some common issues. Also a few useull links.
+date: 2025-08-18 18:55:00 +0200 # this creates a date on the page
+categories: [Documentation, Dependency Management]
 tags: [poetry, package management, python]     # TAG names should always be lowercase
 image:
   path: /assets/img/icon.jpg
@@ -73,7 +73,7 @@ be used outside of the default system installation. Also important: Do **not** r
 project from the poetry environment! This will also mess with dependencies, in case
 there is a mismatch between packages.
 
-The documentation recommend to install Poetry inside an isolated venv and to 
+The documentation recommends to install Poetry inside an isolated venv and to 
 run all commands from there:
 
 ```bash
@@ -109,29 +109,27 @@ python myscript.py
 By starting a shell or a subcommand, all dependencies are referenced and updated inside the subshell.
 
 
-Poetry evaluates the current shell, if there is any active venv for the current session. It poetry detects an active session, this session will be reused to install and manage all dependencies that are found inside the toml/lock files. 
-By running poetry with `$POETRY_HOME/bin/poetry` the active shell does not run an venv session and poetry uses a automatically created venv environment for this session.
-By running `$POETRY_HOME/bin/poetry shell` this session will be opened with a custom subshell inside the active shell session.
-this way we can use different virtual environments with poetry and load custom environments when starting a script or a new session.
+Poetry evaluates the current shell, if there is any active cached venv for the current working directory. If poetry detects an active session, this session will be reused to install and manage all dependencies that are found inside the toml and/or lock files. By running poetry with `$POETRY_HOME/bin/poetry` the active shell does not run an venv session and poetry uses a automatically created venv environment for this session. By running `$POETRY_HOME/bin/poetry shell` this session will be opened with a custom subshell inside the active shell session. This way we can use different virtual environments with poetry and load custom environments when starting a script or a new session. With the most recent changes to Poetry, this will require the shell plugin to be installed. For regular use, the `eval` option should be preferred.
 
-Typical usage of poetry could look like this;
+Typical usage of poetry could look like this:
 ```bash
-export POETRY_HOME=/opt/poetry
-$POETRY_HOME/bin/poetry add jupiter notebook
-$POETRY_HOME/bin/poetry add ipykernel
+poetry add jupiter notebook
+poetry add ipykernel
 
-$POETRY_HOME/bin/poetry show --tree
-$POETRY_HOME/bin/poetry install # needed?
+poetry show --tree
+poetry install 
 
 # with these poetry spawns a local shell or a notebook and runs all commands isolated inside a new venv
-$POETRY_HOME/bin/poetry run jupyter notebook
+poetry run jupyter notebook
 # or
-$POETRY_HOME/bin/poetry shell
+poetry shell
+# or 
+eval $(poetry env activate)
 ```
 
 Poetry displays the currently available environments for a single project with `env list`. The command must be executed within a project folder:
 ```bash
-$POETRY_HOME/bin/poetry env list
+poetry env list
 ```
 
 > Poetry indicates which of the virtual environments connected to your project is currently selected as the **default one**. Although it says _activated_, the corresponding virtual environment isn’t actually activated in your shell in the traditional sense. Instead, Poetry will temporarily activate that virtual environment in a [subprocess](https://realpython.com/python-subprocess/) when you run one of the Poetry commands. [^5]
@@ -139,28 +137,33 @@ $POETRY_HOME/bin/poetry env list
 # Setting up a new Project
 
 
+This will run the interactive setup script for Poetry to generate project files and add dependencies.
 
 ```bash
-$POETRY_HOME/bin/poetry new poetry-demo
+poetry new poetry-demo
 ```
 
+The default layout for a managed project should look like this:
 
 ```text
 poetry-demo
 ├── pyproject.toml
 ├── README.md
-├── poetry_demo
-│   └── __init__.py
+├── src
+│   └──poetry_demo
+│      └── __init__.py
 └── tests
     └── __init__.py
 ```
+
+Depending on the use, we can also add modules and scripts to be installed. 
 
 
 ```toml
 [project]
 name = "poetry-demo"
 version = "0.1.0"
-description = "This is a simple demo file"
+description = "Configuration for an empty project, without modules"
 authors = []
 readme = "README.md"
 requires-python = ">=3.9"
@@ -190,16 +193,16 @@ In order to manage specific version ranges or enforce a fixed version on a depen
 custom constraints can be used.
 
 ```bash
-$POETRY_HOME/bin/poetry add requests==2.25.1 "beautifulsoup4<4.10"
+poetry add requests==2.25.1 "beautifulsoup4<4.10"
 ```
 
 For development setups or testbeds sometimes online sources from upstream 
 projects are required to build or integrate packages. The `add` subcommand 
-supports the addition of remote urls to fetch and integrate version controlled 
+supports the addition of remote urls (GitHub, SVN) to fetch and integrate version controlled 
 sources. Depending on the integration tarballs or custom repositories can be enabled.
 
-```
-$POETRY_HOME/bin/poetry add https://github.com/FreeOpcUa/opcua-asyncio/archive/refs/tags/v0.9.95.tar.gz
+```bash
+poetry add https://github.com/FreeOpcUa/opcua-asyncio/archive/refs/tags/v0.9.95.tar.gz
 ```
 
 ## Run a Project on a new System
@@ -218,7 +221,7 @@ poetry install
 Jupyter usually does not display an extra kernel in the web view, if the
 installation is not setup correctly. To use Jupyter with Poetry, all dependencies 
 must be created and installed directly with poetry inside the local environment
-of the project ([Source](https://stackoverflow.com/questions/72434896/jupyter-kernel-doesnt-use-poetry-environment)).
+of the project[^6].
 
 ```bash
 poetry add jupyter notebook # run a project live inside the poetry venv
@@ -227,7 +230,6 @@ poetry show --tree
 poetry install 
 ```
 
-### Outline:
 
 Create a new project with Poetry:
 
@@ -241,7 +243,7 @@ Use a specific Python version with your environment:
 poetry env use 3.12
 ```
 
-Add ipykernel to your environment:
+Add ipykernel to your environment. This needs to be run together with jupyter to work.
 
 ```python
 poetry add ipykernel
@@ -308,3 +310,4 @@ source source_poetry.sh
 [^3]: https://github.com/python-poetry/poetry/issues/4572
 [^4]: https://github.com/python-poetry/poetry
 [^5]: https://realpython.com/dependency-management-python-poetry/
+[^6]: https://stackoverflow.com/questions/72434896/jupyter-kernel-doesnt-use-poetry-environment
