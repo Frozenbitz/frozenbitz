@@ -2,6 +2,7 @@
 title: MOTRA - Design and Build customized industrial Testbeds
 description: A short introduction to the MOTRA testbed and a collection of links and publication history.
 date: 2025-10-27 12:00:00 +0200
+upate: 2025-10-28 12:00:00 +0200
 categories: [MOTRA]
 tags: [motra, docker, opc ua, testbed]     # TAG names should always be lowercase
 image:
@@ -141,4 +142,14 @@ attacks to create clean and repetetive datasets for research purposes.
 
 ## Current Publications
 
-tbd... 
+Main testbed setup, usage and research directions:
+> S. Kraust, P. Heller and J. Mottok, "A Modular and Flexible OPC UA Testbed Prototype for Cybersecurity Research", in proceedings of the Nineteenth International Conference on Emerging Security Information, Systems and Technologies, Barcelona, Spain
+ISBN: 978-1-68558-306-4, October 26, 2025 to October 30, 2025.
+
+Design and concept for the testbed components for OPC UA and our custom components: 
+> P. Heller, S. Kraust, J. Mottok, "Building Modular OPC UA Testbed Components for Industrial Security Pentesting", in proceedings of 30th International Conference on Applied Electronics 2025, Pilsen, Czech Republic.
+
+The general testbed design and research concepts:
+> S. Kraust, P. Heller and J. Mottok, "Concept for Designing an ICS Testbed from a Penetration Testing Perspective," 2025 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW), Venice, Italy, 2025, pp. 561-568, doi: 10.1109/EuroSPW67616.2025.00071.
+
+
