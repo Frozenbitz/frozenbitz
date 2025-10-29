@@ -1,6 +1,6 @@
 ---
 title: Scapy - Setting up a development environment for OPC UA & MOTRA
-description: A really short primer on how to setup a development environment for scapy & MOTRA. 
+description: A really short primer on how to setup a development environment for Scapy & MOTRA. 
 date: 2025-10-28 12:00:00 +0200
 categories: [MOTRA]
 tags: [scapy, opc ua]     # TAG names should always be lowercase
